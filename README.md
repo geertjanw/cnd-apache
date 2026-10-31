@@ -143,7 +143,53 @@ completion, diagnostics and navigation you must install clangd (e.g.
 
 ---
 
-## 5. Building
+## 5. Tools & technologies for C/C++ in NetBeans
+
+NetBeans CND is an **IDE front-end**, not a toolchain — it drives tools you
+install on the host. Here is what you need, from "always" to "only for certain
+samples".
+
+### Base toolchain — needed for *any* C/C++ project
+
+| Tool | What it does | macOS | Debian/Ubuntu | Windows |
+|---|---|---|---|---|
+| **C/C++ compiler** (GCC or Clang) | compiles your code | `xcode-select --install` (clang) | `sudo apt install build-essential` | MSYS2/MinGW‑w64 or Cygwin |
+| **`make`** (GNU make) | NetBeans make projects build through it | comes with the CLT | `build-essential` | MSYS2/MinGW |
+| **`gdb`** | the C/C++ debugger NetBeans integrates | `brew install gdb` (needs code‑signing) or use `lldb` | `sudo apt install gdb` | via MSYS2/MinGW |
+| **`clangd`** | **completion, diagnostics & go‑to** — this build delegates C/C++ intelligence to clangd over LSP (it is *not* bundled) | `brew install llvm` | `sudo apt install clangd` | MSYS2 `mingw-w64-clang-tools-extra` |
+
+After installing, point the IDE at the toolchain under **Tools → Options →
+C/C++ → Build Tools**, and at clangd under the C/C++ **LSP / clangd** options.
+
+### Java side (for the IDE itself and for mixed Java + C/C++)
+
+- A **JDK (17 or 21)** runs Apache NetBeans and builds the Java half of a mixed
+  project. JNI work also needs the JDK's `include/` headers (`${JAVA_HOME}/include`).
+
+### Per-sample extras
+
+The bundled samples (**File → New Project → C/C++ → Samples**) need these in
+*addition* to the base toolchain:
+
+| Sample | Extra tool / technology | Install |
+|---|---|---|
+| `helloqt` | **Qt** (qmake + moc; Qt core/gui/widgets) | `brew install qt` · `sudo apt install qtbase5-dev qttools5-dev-tools` — then set it under *Options → C/C++ → Qt* |
+| `freeway` (GtkFreeway) | **GTK+ 2.0** and **`pkg-config`** (links via `` `pkg-config --libs gtk+-2.0` ``) | `brew install gtk+ pkg-config` · `sudo apt install libgtk2.0-dev pkg-config` |
+| `lexyacc` | **flex** (`lex`) and **bison** (`yacc`) | `brew install flex bison` · `sudo apt install flex bison` |
+| `hellocmake` | **CMake** | `brew install cmake` · `sudo apt install cmake` |
+| `pi` | **POSIX threads** (pthreads) | part of the base toolchain — nothing extra |
+| `mp` | **POSIX `fork()`** | part of the base toolchain — nothing extra |
+| `hello`, `welcome`, `args`, `io`, `quote`, `fractal`, `helloapp` | — | base toolchain only |
+
+### For the DuckDB walkthrough ([`docs/DUCKDB-JDBC.md`](docs/DUCKDB-JDBC.md))
+
+- The **DuckDB JDBC driver** `org.duckdb:duckdb_jdbc` (a single jar that bundles
+  the native engine — nothing else to install), plus the base toolchain for the
+  JNI library and a JDK for the Java side.
+
+---
+
+## 6. Building
 
 This is official Apache NetBeans source and builds with the standard Apache
 NetBeans Ant build. Place these module trees in an `apache/netbeans` checkout
@@ -159,14 +205,23 @@ JDK 17 or 21 is required. The 42 prebuilt plugins are in
 
 ---
 
-## 6. Installing the plugins
+## 7. Installing the plugins
 
-See [`releases/README.md`](releases/README.md). In short: **Tools → Plugins →
-Downloaded → Add Plugins…**, select the `.nbm` files, Install, restart.
+Two options:
+
+- **Release zip** (easiest): download
+  [`netbeans-cnd-apache-1.0-alpha.zip`](https://github.com/geertjanw/cnd-apache/releases/latest)
+  from the [Releases](https://github.com/geertjanw/cnd-apache/releases) page — it
+  bundles all 42 `.nbm`s, an autoupdate catalog and `INSTALL.txt`.
+- **This repo**: the same `.nbm`s are in [`releases/`](releases/).
+
+Either way: **Tools → Plugins → Downloaded → Add Plugins…**, select the `.nbm`
+files, Install, accept the Apache 2.0 license, restart. See
+[`releases/README.md`](releases/README.md) for details.
 
 ---
 
-## 7. Usage
+## 8. Usage
 
 A full example — a mixed **Java + C/C++** project where the Java side
 talks to an embedded [DuckDB](https://duckdb.org) database through its JDBC
@@ -175,7 +230,7 @@ IDE — is in [`docs/DUCKDB-JDBC.md`](docs/DUCKDB-JDBC.md).
 
 ---
 
-## 8. Upstream
+## 9. Upstream
 
 - Official sources: <https://github.com/apache/netbeans/tree/cnd>
 - Donation background: <https://cwiki.apache.org/confluence/display/NETBEANS/4th+and+5th+donations>
