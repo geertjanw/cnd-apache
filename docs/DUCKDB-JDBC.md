@@ -1,7 +1,7 @@
 # Example: mixed Java + C/C++ with the DuckDB JDBC driver
 
-This walks through a small **mixed-language** project that exercises the parts of
-this Apache-licensed CND build that matter most:
+This walks through a small **mixed-language** project that exercises the main parts of
+this Apache-licensed CND build:
 
 - a **C/C++ dynamic-library** make project (built and `gdb`-debugged with your
   `gcc`/`clang` toolchain), and
