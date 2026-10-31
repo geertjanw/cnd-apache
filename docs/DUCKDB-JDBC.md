@@ -1,4 +1,4 @@
-# Worked example: mixed Java + C/C++ with the DuckDB JDBC driver
+# Example: mixed Java + C/C++ with the DuckDB JDBC driver
 
 This walks through a small **mixed-language** project that exercises the parts of
 this Apache-licensed CND build that matter most:
