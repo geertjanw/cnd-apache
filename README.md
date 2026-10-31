@@ -166,9 +166,9 @@ Downloaded → Add Plugins…**, select the `.nbm` files, Install, restart.
 
 ---
 
-## 7. Using it with the DuckDB Java JDBC driver
+## 7. Usage
 
-A full worked example — a mixed **Java + C/C++** project where the Java side
+A full example — a mixed **Java + C/C++** project where the Java side
 talks to an embedded [DuckDB](https://duckdb.org) database through its JDBC
 driver and the C/C++ side is a JNI native library built and debugged in the same
 IDE — is in [`docs/DUCKDB-JDBC.md`](docs/DUCKDB-JDBC.md).
