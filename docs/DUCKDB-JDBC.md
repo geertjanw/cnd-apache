@@ -169,13 +169,13 @@ the C/C++ library side by side: set a breakpoint in `ducknative.cpp`, attach
 | `UnsatisfiedLinkError: ...describe` (library loads, method missing) | The C++ symbol name must match `Java_<pkg>_<Class>_<method>` exactly — regenerate with `javac -h`. |
 | `jni.h: No such file or directory` | Add `${JAVA_HOME}/include` and the OS subdir to the project's include paths (step 1). |
 | No C/C++ completion/diagnostics | Install `clangd` and set its path in the C/C++ LSP options — intelligence is clangd-based in this build. |
-| `No suitable driver found for jdbc:duckdb:` | The `duckdb_jdbc` jar isn't on the runtime classpath. |
+| `No suitable driver found for jdbc:duckdb:` | The `duckdb_jdbc` JAR isn't on the runtime classpath. |
 
 ---
 
 ## 5. Why DuckDB here
 
-DuckDB's JDBC driver is a single self-contained jar with an **embedded native
+DuckDB's JDBC driver is a single self-contained JAR with an **embedded native
 engine** — no server to run — so it's an ideal companion for demonstrating a
 mixed Java/C++ workflow: fast analytical SQL from Java, with your own native
 C/C++ code alongside it, all built, run and navigated inside one Apache NetBeans
